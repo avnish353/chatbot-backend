@@ -14,7 +14,10 @@ load_dotenv()
 app = Flask(__name__) 
 CORS(
     app,
-    resources={r"/api/*": {"origins": "https://chatbot-frontend-lovat-psi.vercel.app"}}, #http://localhost:5173
+    origins=[
+        "https://chatbot-frontend-lovat-psi.vercel.app",
+        "http://localhost:5173"
+    ],
     supports_credentials=True
 )
 
