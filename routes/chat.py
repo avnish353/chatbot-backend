@@ -25,17 +25,9 @@ def chat_api():
     reply = get_response(user_message, user_id,chat_id)
     return jsonify({"reply": reply})
 
-@Chat.route('/stream', methods=['POST', 'OPTIONS'])
+@Chat.route('/stream', methods=['POST'])
 @jwt_required()
 def stream():
-
-    if request.method == 'OPTIONS':
-        response = Response()
-        response.status_code = 200
-        response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-        response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        return response
 
     data = request.get_json()
 
@@ -60,14 +52,10 @@ def stream():
         except Exception as e:
             yield f"Error: {str(e)}"
 
-    response = Response(
+    return Response(
         generate(),
-        mimetype='text/event-stream'
+        mimetype="text/event-stream"
     )
-
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
-
-    return response
 
 @Chat.route("/create", methods=["POST"])
 @jwt_required()
