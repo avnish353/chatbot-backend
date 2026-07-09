@@ -1,15 +1,23 @@
 from nltk.tokenize import RegexpTokenizer
 
-# Create tokenizer (splits on words, ignores punctuation)
 tokenizer = RegexpTokenizer(r'\w+')
 
+STOP_WORDS = {
+    "a", "an", "the", "is", "are", "am", "was", "were",
+    "my", "your", "our", "their",
+    "to", "for", "of", "in", "on", "at", "with",
+    "and", "or", "but",
+    "can", "could", "would", "should",
+    "please"
+}
+
 def preprocess(text):
-    """
-    Preprocess text for NLP:
-    - Lowercase
-    - Tokenize using RegexpTokenizer (no external data needed)
-    """
     if not isinstance(text, str):
         text = str(text)
+
     tokens = tokenizer.tokenize(text.lower())
+
+    # Remove stop words
+    tokens = [word for word in tokens if word not in STOP_WORDS]
+
     return " ".join(tokens)
