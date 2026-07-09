@@ -94,8 +94,16 @@ INTENTS = {
             "has my order shipped",
             "track my package",
             "order delivery update",
-            "shipping update for my order"
-
+            "shipping update for my order",
+            "where is my package",
+            "my order is delayed",
+            "order not delivered",
+            "delivery is late",
+            "package not received",
+            "my shipment is missing",
+            "check delivery status",
+            "when will my order come",
+            "order tracking"
         ],
 
         "responses": [
@@ -123,8 +131,23 @@ INTENTS = {
             "return and refund my purchase",
             "refund for damaged product",
             "how do i request refund",
-            "refund my payment"
-
+            "refund my payment",
+            "refund for damaged product",
+            "my phone is damaged",
+            "received damaged phone",
+            "broken phone",
+            "damaged item",
+            "received broken product",
+            "my product arrived damaged",
+            "item is broken",
+            "product is defective",
+            "i received faulty product",
+            "want replacement",
+            "need replacement",
+            "damaged item received",
+            "my device is broken",
+            "my phone screen is damaged",
+            "product stopped working"
         ],
 
         "responses": [
@@ -181,7 +204,15 @@ INTENTS = {
             "unable to process payment",
             "issue with billing",
             "incorrect charge on my account",
-            "update my payment method"
+            "update my payment method",
+            "my payment is not working",
+"payment declined",
+"charged extra money",
+"wrong billing amount",
+"invoice problem",
+"payment issue",
+"transaction failed",
+"money deducted but order failed"
 
         ],
 
@@ -212,7 +243,15 @@ INTENTS = {
             "site is down",
             "my page is not loading",
             "system is very slow",
-            "something is wrong with the app"
+            "something is wrong with the app",
+            "app is not opening",
+"website crashed",
+"login page not loading",
+"system error",
+"application error",
+"something went wrong",
+"server problem",
+"cannot use the app"
 
         ],
 
@@ -277,6 +316,31 @@ INTENTS = {
             "I'd be happy to explain the features and pricing. Which product interests you?",
 
             "I can help compare plans and features. Tell me what you'd like to know."
+        ]
+    },
+    
+     # ---------------- RETURN EXCHANGE ----------------
+    
+    "return_exchange": {
+
+        "patterns": [
+
+            "i want to return my product",
+            "how can i return item",
+            "i want to exchange product",
+            "can i replace my item",
+            "return my order",
+            "exchange my order",
+            "product return policy"
+
+        ],
+
+        "responses": [
+
+            "You can request a return or exchange by providing your order ID.",
+
+            "Please share your order details and reason for return."
+
         ]
     },
 
