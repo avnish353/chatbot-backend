@@ -1,46 +1,48 @@
 import random
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+
 from nlp.intents import INTENTS
 from nlp.preprocess import preprocess
+from nlp.embeddings import encode_texts, encode_single
+
+intent_patterns = []
+intent_names = []
+
+for intent_name, intent_data in INTENTS.items():
+    for pattern in intent_data["patterns"]:
+        intent_patterns.append(preprocess(pattern))
+        intent_names.append(intent_name)
+
+intent_embeddings = encode_texts(intent_patterns)
 
 def detect_intent(user_input):
 
     processed = preprocess(user_input)
-    processed_tokens = set(processed.split())
 
-    best_intent = None
-    best_score = 0
+    query_embedding = encode_single(processed)
 
-    for intent_name, intent_data in INTENTS.items():
+    similarities = cosine_similarity(
+        [query_embedding],
+        intent_embeddings
+    )[0]
 
-        for pattern in intent_data["patterns"]:
+    best_idx = np.argmax(similarities)
+    best_score = float(similarities[best_idx])
+    print("Input:", processed)
+    print("Matched Intent:", intent_names[best_idx])
+    print("Similarity:", best_score)
 
-            pattern_processed = preprocess(pattern)
-            pattern_tokens = set(pattern_processed.split())
+    if best_score >= 0.50:
 
-            if len(pattern_tokens) == 0:
-                continue
-
-            # 🔥 improved scoring (recall-friendly)
-            overlap = len(pattern_tokens & processed_tokens)
-            score = overlap / len(pattern_tokens)
-
-            # bonus boost for partial phrase match
-            if processed in pattern_processed or pattern_processed in processed:
-                score += 0.3
-
-            if score > best_score:
-                best_score = score
-                best_intent = intent_data
-
-    # 🔥 LOWER threshold (important fix)
-    if best_score >= 0.25:
+        intent_name = intent_names[best_idx]
         return {
-            "response": random.choice(best_intent["responses"]),
+            "response": random.choice(INTENTS[intent_name]["responses"]),
             "score": best_score
         }
+        
 
     return None
-
 def get_intent_suggestions(query):
 
     query = preprocess(query)
