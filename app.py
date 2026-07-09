@@ -16,7 +16,6 @@ CORS(
     app,
     origins=[
         "https://chatbot-frontend-lovat-psi.vercel.app",
-        "http://localhost:5173"
     ],
     supports_credentials=True
 )
